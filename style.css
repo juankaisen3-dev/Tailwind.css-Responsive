@@ -123,7 +123,7 @@ header nav ul li a
 #main-image
 {
     height: 580px;
-    background: url(images/image1.jpg) center;
+    background: url(1.jpg) center;
 }
 #main-image h2
 {
@@ -357,3 +357,4 @@ footer h1{
      padding-top: 180px; 
 
 }
+
