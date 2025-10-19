@@ -2,15 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-#main-image {
+@layer utilities {
+  #main-image {
+    @apply bg-cover bg-center;
     background-image: url('image1.jpg');
-}
+  }
 
-#possibilities article:first-child {
+  #possibilities article:first-child {
+    @apply bg-cover bg-center;
     background-image: url('1.png');
-}
+  }
 
-#possibilities article:last-child {
+  #possibilities article:last-child {
+    @apply bg-cover bg-center;
     background-image: url('our.webp');
+  }
 }
-
