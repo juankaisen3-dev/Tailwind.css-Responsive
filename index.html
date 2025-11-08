@@ -13,6 +13,7 @@
         
         body {
             font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
         }
         
         h1, h2, h3, h4 {
@@ -92,6 +93,57 @@
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
             100% { transform: scale(1); }
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid orange;
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: orange; }
         }
     </style>
 </head>
@@ -196,8 +248,10 @@
                         <h4 class="text-xl font-bold mb-2">Bali, Indonésie</h4>
                         <p class="text-gray-600 mb-4">Découvrez les plages de sable blanc, les temples sacrés et la culture riche de Bali.</p>
                         <div class="flex justify-between items-center">
-                            <span class="text-pink-600 font-bold">À partir de 1200€</span>
-                            <a href="#" class="text-cyan-600 hover:text-cyan-800 font-semibold">Voir détails <i class="fas fa-arrow-right ml-1"></i></a>
+                            <span class="text-pink-600 font-bold">À partir de 787 000 FCFA</span>
+                            <button class="more-info-btn text-cyan-600 hover:text-cyan-800 font-semibold" data-destination="bali">
+                                Plus d'infos <i class="fas fa-arrow-right ml-1"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -212,8 +266,10 @@
                         <h4 class="text-xl font-bold mb-2">Santorini, Grèce</h4>
                         <p class="text-gray-600 mb-4">Profitez des couchers de soleil spectaculaires et des villages blancs emblématiques.</p>
                         <div class="flex justify-between items-center">
-                            <span class="text-pink-600 font-bold">À partir de 800€</span>
-                            <a href="#" class="text-cyan-600 hover:text-cyan-800 font-semibold">Voir détails <i class="fas fa-arrow-right ml-1"></i></a>
+                            <span class="text-pink-600 font-bold">À partir de 525 000 FCFA</span>
+                            <button class="more-info-btn text-cyan-600 hover:text-cyan-800 font-semibold" data-destination="santorini">
+                                Plus d'infos <i class="fas fa-arrow-right ml-1"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -221,24 +277,26 @@
                 <!-- Destination 3 -->
                 <div class="destination-card bg-white rounded-xl overflow-hidden shadow-md" data-aos="zoom-in" data-aos-delay="300">
                     <div class="overflow-hidden h-64">
-                        <img src="https://images.unsplash.com/photo-1562602833-05e731a4a179?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                        <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
                              alt="Kyoto" class="w-full h-full object-cover destination-image">
                     </div>
                     <div class="p-6">
                         <h4 class="text-xl font-bold mb-2">Kyoto, Japon</h4>
                         <p class="text-gray-600 mb-4">Immergez-vous dans la culture traditionnelle japonaise avec ses temples et jardins zen.</p>
                         <div class="flex justify-between items-center">
-                            <span class="text-pink-600 font-bold">À partir de 1500€</span>
-                            <a href="#" class="text-cyan-600 hover:text-cyan-800 font-semibold">Voir détails <i class="fas fa-arrow-right ml-1"></i></a>
+                            <span class="text-pink-600 font-bold">À partir de 984 000 FCFA</span>
+                            <button class="more-info-btn text-cyan-600 hover:text-cyan-800 font-semibold" data-destination="kyoto">
+                                Plus d'infos <i class="fas fa-arrow-right ml-1"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
             
             <div class="text-center mt-12" data-aos="fade-up">
-                <a href="#" class="inline-block bg-cyan-600 text-white font-semibold py-3 px-8 rounded-lg btn-animate hover:bg-cyan-700">
+                <button id="all-destinations-btn" class="inline-block bg-cyan-600 text-white font-semibold py-3 px-8 rounded-lg btn-animate hover:bg-cyan-700">
                     Voir toutes les destinations
-                </a>
+                </button>
             </div>
         </div>
     </section>
@@ -257,9 +315,9 @@
                         <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-6">
                             <h4 class="text-2xl font-bold text-white mb-2">Voyage en Famille</h4>
                             <p class="text-white mb-4">Des activités adaptées à tous les âges pour des souvenirs inoubliables</p>
-                            <a href="#" class="inline-block bg-cyan-400 text-gray-800 font-semibold py-2 px-6 rounded-md btn-animate hover:bg-pink-600 hover:text-white self-start">
+                            <button class="circuit-info-btn inline-block bg-cyan-400 text-gray-800 font-semibold py-2 px-6 rounded-md btn-animate hover:bg-pink-600 hover:text-white self-start" data-circuit="famille">
                                 Plus d'infos
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </article>
@@ -269,9 +327,9 @@
                         <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-end p-6">
                             <h4 class="text-2xl font-bold text-white mb-2">Aventure & Exploration</h4>
                             <p class="text-white mb-4">Partez à l'aventure avec nos circuits d'exploration en pleine nature</p>
-                            <a href="#" class="inline-block bg-cyan-400 text-gray-800 font-semibold py-2 px-6 rounded-md btn-animate hover:bg-pink-600 hover:text-white self-start">
+                            <button class="circuit-info-btn inline-block bg-cyan-400 text-gray-800 font-semibold py-2 px-6 rounded-md btn-animate hover:bg-pink-600 hover:text-white self-start" data-circuit="aventure">
                                 Plus d'infos
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </article>
@@ -368,7 +426,7 @@
                 </div>
                 
                 <div class="p-4 border-t border-gray-200">
-                    <div class="flex mb-2">
+                    <div class="flex mb-2 flex-wrap">
                         <button class="quick-question mr-2 mb-2 bg-gray-200 hover:bg-cyan-600 hover:text-white text-gray-700 py-1 px-3 rounded-full text-sm transition-colors">
                             Destinations populaires
                         </button>
@@ -377,6 +435,9 @@
                         </button>
                         <button class="quick-question mr-2 mb-2 bg-gray-200 hover:bg-cyan-600 hover:text-white text-gray-700 py-1 px-3 rounded-full text-sm transition-colors">
                             Budget moyen
+                        </button>
+                        <button class="quick-question mr-2 mb-2 bg-gray-200 hover:bg-cyan-600 hover:text-white text-gray-700 py-1 px-3 rounded-full text-sm transition-colors">
+                            Contact rapide
                         </button>
                     </div>
                     <div class="flex">
@@ -402,20 +463,20 @@
                     Alors, prêt à écrire la suite ?
                 </p>
                 
-                <form class="mt-10 mb-5 grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                <form id="contactForm" class="mt-10 mb-5 grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
                     <div>
                         <label for="name" class="block font-bold text-gray-700 mb-2">Nom complet</label>
-                        <input type="text" id="name" name="name" placeholder="Entrez votre nom" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all">
+                        <input type="text" id="name" name="name" placeholder="Entrez votre nom" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all" required>
                     </div>
                     
                     <div>
                         <label for="email" class="block font-bold text-gray-700 mb-2">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Votre email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all">
+                        <input type="email" id="email" name="email" placeholder="Votre email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all" required>
                     </div>
                     
                     <div class="md:col-span-2">
                         <label for="message" class="block font-bold text-gray-700 mb-2">Message</label>
-                        <textarea id="message" name="message" rows="4" placeholder="Dites-nous comment nous pouvons vous aider..." class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all"></textarea>
+                        <textarea id="message" name="message" rows="4" placeholder="Dites-nous comment nous pouvons vous aider..." class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all" required></textarea>
                     </div>
                     
                     <div class="md:col-span-2 text-center">
@@ -466,29 +527,48 @@
                     <ul class="space-y-2 text-gray-400">
                         <li class="flex items-center">
                             <i class="fas fa-map-marker-alt mr-2"></i>
-                            <span>GABON, LBV</span>
+                            <span>Akanda, Gabon, LBV</span>
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-phone mr-2"></i>
-                            <span>+241074085772</span>
+                            <a href="tel:+241074085772" class="hover:text-white transition-colors">+241 07 40 85 772</a>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fab fa-whatsapp mr-2"></i>
+                            <a href="https://wa.me/241074085772" target="_blank" class="hover:text-white transition-colors">WhatsApp: 07 40 85 772</a>
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-envelope mr-2"></i>
-                            <span>JuanKaisen3gmail.com</span>
+                            <a href="mailto:juankaisen3@gmail.com" class="hover:text-white transition-colors">juankaisen3@gmail.com</a>
                         </li>
                     </ul>
                 </div>
             </div>
             
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500 text-sm">
-                <p>Copyright © 2025 Daniel_Tech. Tous droits réservés.</p>
+                <p>Copyright © 2025 Juan Daniel. Tous droits réservés.</p>
                 <p class="mt-2">Développé avec Visual Studio Code 🧠💻</p>
                 <p class="mt-1">Ce code appartient au projet JUANverse™ : fusion de style, techno et créativité.</p>
                 <p class="mt-1">Toute reproduction, distribution ou modification est interdite sans autorisation explicite.</p>
-                <p class="mt-1">Contact : juankaisen3@gmail.com</p>
+                <p class="mt-1">Contact : <a href="mailto:juankaisen3@gmail.com" class="text-cyan-400 hover:text-cyan-300">juankaisen3@gmail.com</a></p>
             </div>
         </div>
     </footer>
+
+    <!-- Modal pour afficher les détails -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modalTitle" class="text-2xl font-bold"></h3>
+                <button id="closeModal" class="text-gray-500 hover:text-gray-700 text-xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="modalContent" class="text-gray-600">
+                <!-- Le contenu sera chargé dynamiquement ici -->
+            </div>
+        </div>
+    </div>
 
     <script>
         // Initialiser AOS (Animate On Scroll)
@@ -498,6 +578,75 @@
                 once: true,
                 offset: 100
             });
+            
+            // Données pour les destinations
+            const destinationsData = {
+                "bali": {
+                    title: "Bali, Indonésie",
+                    image: "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    description: "Bali, l'île des dieux, vous accueille avec ses paysages à couper le souffle, ses temples sacrés et sa culture riche. Détendez-vous sur les plages de sable blanc, explorez les rizières en terrasses et découvrez l'hospitalité légendaire des Balinais.",
+                    highlights: [
+                        "Visite des temples sacrés d'Uluwatu et de Tanah Lot",
+                        "Détente sur les plages de Seminyak et Canggu",
+                        "Exploration des rizières en terrasses de Jatiluwih",
+                        "Découverte de la culture balinaise à Ubud",
+                        "Excursion sur l'île de Nusa Penida"
+                    ],
+                    duration: "10 jours / 9 nuits",
+                    price: "787 000 FCFA",
+                    includes: ["Vol aller-retour", "Hébergement 4 étoiles", "Petit-déjeuner", "Transferts aéroport", "Guide francophone"]
+                },
+                "santorini": {
+                    title: "Santorini, Grèce",
+                    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    description: "Santorini, la perle des Cyclades, est célèbre pour ses villages blancs perchés sur des falaises, ses couchers de soleil spectaculaires et ses eaux cristallines. Une destination romantique par excellence.",
+                    highlights: [
+                        "Admiration du coucher de soleil à Oia",
+                        "Exploration de Fira, la capitale de l'île",
+                        "Visite des villages traditionnels de Pyrgos et Megalochori",
+                        "Baignade sur la plage de sable noir de Perissa",
+                        "Excursion en bateau vers les sources chaudes volcaniques"
+                    ],
+                    duration: "7 jours / 6 nuits",
+                    price: "525 000 FCFA",
+                    includes: ["Vol aller-retour", "Hébergement avec vue caldeira", "Petit-déjeuner", "Transferts", "Excursion en bateau"]
+                },
+                "kyoto": {
+                    title: "Kyoto, Japon",
+                    image: "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+                    description: "Kyoto, ancienne capitale impériale du Japon, vous invite à découvrir la culture traditionnelle japonaise avec ses temples séculaires, ses jardins zen et ses geishas élégantes.",
+                    highlights: [
+                        "Visite du temple Kinkaku-ji (Pavillon d'Or)",
+                        "Promenade dans le sanctuaire Fushimi Inari aux milliers de torii",
+                        "Découverte du quartier des geishas à Gion",
+                        "Expérience de cérémonie du thé traditionnelle",
+                        "Balade dans le jardin zen du temple Ryoan-ji"
+                    ],
+                    duration: "12 jours / 11 nuits",
+                    price: "984 000 FCFA",
+                    includes: ["Vol aller-retour", "Hébergement en ryokan traditionnel", "Petit-déjeuner", "Pass JR pour les transports", "Guide francophone"]
+                }
+            };
+            
+            // Données pour les circuits
+            const circuitsData = {
+                "famille": {
+                    title: "Circuit Famille",
+                    description: "Nos circuits famille sont spécialement conçus pour satisfaire tous les membres de la famille, des plus petits aux plus grands. Nous sélectionnons des destinations adaptées, des activités variées et des hébergements confortables pour garantir des vacances inoubliables.",
+                    destinations: ["Disneyland Paris", "Costa Brava (Espagne)", "Tunisie", "Maroc", "Sénégal"],
+                    activities: ["Parcs d'attractions", "Plages adaptées aux enfants", "Visites culturelles interactives", "Activités nautiques", "Zoos et aquariums"],
+                    price: "À partir de 350 000 FCFA par personne",
+                    duration: "De 5 à 12 jours selon la destination"
+                },
+                "aventure": {
+                    title: "Circuit Aventure & Exploration",
+                    description: "Pour les âmes aventurières, nos circuits d'exploration vous emmènent dans des lieux préservés et extraordinaires. Randonnées, treks, découvertes de cultures authentiques et immersion dans la nature sauvage vous attendent.",
+                    destinations: ["Patagonie (Chili/Argentine)", "Népal (trek dans l'Himalaya)", "Islande (route des volcans)", "Kenya (safari)", "Pérou (Machu Picchu)"],
+                    activities: ["Randonnées et treks", "Safaris photo", "Expéditions en 4x4", "Rencontres avec les populations locales", "Observation de la faune"],
+                    price: "À partir de 650 000 FCFA par personne",
+                    duration: "De 10 à 21 jours selon la destination"
+                }
+            };
             
             // Gestion du chatbot
             const chat = document.getElementById('chat');
@@ -509,8 +658,9 @@
             const responses = {
                 "destinations populaires": "Nos destinations les plus populaires sont Bali, Santorin, Kyoto, les Maldives et la Patagonie. Chacune offre une expérience unique !",
                 "circuits famille": "Nous proposons des circuits famille adaptés à tous les âges, avec des activités variées et des hébergements confortables. Où souhaitez-vous partir ?",
-                "budget moyen": "Les budgets varient selon la destination et la durée. En moyenne, comptez entre 800€ et 2500€ par personne selon le type de voyage. Avez-vous une destination en tête ?",
-                "default": "Je comprends votre question. Laissez-moi vous mettre en contact avec l'un de nos experts voyages qui pourra vous aider personnellement."
+                "budget moyen": "Les budgets varient selon la destination et la durée. En moyenne, comptez entre 350 000 FCFA et 1 200 000 FCFA par personne selon le type de voyage. Avez-vous une destination en tête ?",
+                "contact rapide": "Vous pouvez nous joindre au 07 40 85 772 (WhatsApp disponible), par email à juankaisen3@gmail.com, ou visiter notre agence à Akanda, Gabon, LBV.",
+                "default": "Je comprends votre question. Laissez-moi vous mettre en contact avec l'un de nos experts voyages qui pourra vous aider personnellement. Vous pouvez nous appeler au 07 40 85 772."
             };
             
             function addMessage(text, isUser = false) {
@@ -571,6 +721,237 @@
                 } else {
                     header.classList.remove('shadow-lg', 'bg-white', 'bg-opacity-95');
                 }
+            });
+            
+            // Gestion des modals pour les destinations
+            const moreInfoButtons = document.querySelectorAll('.more-info-btn');
+            const circuitInfoButtons = document.querySelectorAll('.circuit-info-btn');
+            const allDestinationsBtn = document.getElementById('all-destinations-btn');
+            const modal = document.getElementById('infoModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            const closeModal = document.getElementById('closeModal');
+            
+            function openModal(title, content) {
+                modalTitle.textContent = title;
+                modalContent.innerHTML = content;
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeModalFunc() {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            
+            closeModal.addEventListener('click', closeModalFunc);
+            
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModalFunc();
+                }
+            });
+            
+            // Gestion des boutons "Plus d'infos" pour les destinations
+            moreInfoButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const destination = this.getAttribute('data-destination');
+                    const data = destinationsData[destination];
+                    
+                    if (data) {
+                        const content = `
+                            <div class="mb-4">
+                                <img src="${data.image}" alt="${data.title}" class="w-full h-64 object-cover rounded-lg mb-4">
+                                <p class="mb-4">${data.description}</p>
+                                
+                                <div class="mb-4">
+                                    <h4 class="font-bold text-lg mb-2">Points forts du séjour :</h4>
+                                    <ul class="list-disc pl-5">
+                                        ${data.highlights.map(highlight => `<li>${highlight}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                    <div>
+                                        <h4 class="font-bold">Durée :</h4>
+                                        <p>${data.duration}</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Prix :</h4>
+                                        <p class="text-pink-600 font-bold">${data.price}</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <h4 class="font-bold text-lg mb-2">Ce prix comprend :</h4>
+                                    <ul class="list-disc pl-5">
+                                        ${data.includes.map(item => `<li>${item}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                
+                                <div class="text-center mt-6">
+                                    <a href="https://wa.me/241074085772?text=Bonjour,%20je%20suis%20intéressé(e)%20par%20le%20voyage%20à%20${encodeURIComponent(data.title)}" 
+                                       target="_blank" 
+                                       class="inline-block bg-green-500 text-white font-bold py-3 px-6 rounded-lg btn-animate hover:bg-green-600 mr-4">
+                                        <i class="fab fa-whatsapp mr-2"></i>Contact WhatsApp
+                                    </a>
+                                    <a href="tel:+241074085772" class="inline-block bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg btn-animate hover:bg-cyan-700">
+                                        <i class="fas fa-phone mr-2"></i>Appeler maintenant
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                        
+                        openModal(data.title, content);
+                    }
+                });
+            });
+            
+            // Gestion des boutons "Plus d'infos" pour les circuits
+            circuitInfoButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const circuit = this.getAttribute('data-circuit');
+                    const data = circuitsData[circuit];
+                    
+                    if (data) {
+                        const content = `
+                            <div class="mb-4">
+                                <p class="mb-4">${data.description}</p>
+                                
+                                <div class="mb-4">
+                                    <h4 class="font-bold text-lg mb-2">Destinations proposées :</h4>
+                                    <ul class="list-disc pl-5">
+                                        ${data.destinations.map(destination => `<li>${destination}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <h4 class="font-bold text-lg mb-2">Activités incluses :</h4>
+                                    <ul class="list-disc pl-5">
+                                        ${data.activities.map(activity => `<li>${activity}</li>`).join('')}
+                                    </ul>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                    <div>
+                                        <h4 class="font-bold">Durée :</h4>
+                                        <p>${data.duration}</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Prix :</h4>
+                                        <p class="text-pink-600 font-bold">${data.price}</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-center mt-6">
+                                    <a href="https://wa.me/241074085772?text=Bonjour,%20je%20suis%20intéressé(e)%20par%20le%20circuit%20${encodeURIComponent(data.title)}" 
+                                       target="_blank" 
+                                       class="inline-block bg-green-500 text-white font-bold py-3 px-6 rounded-lg btn-animate hover:bg-green-600 mr-4">
+                                        <i class="fab fa-whatsapp mr-2"></i>Contact WhatsApp
+                                    </a>
+                                    <a href="tel:+241074085772" class="inline-block bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg btn-animate hover:bg-cyan-700">
+                                        <i class="fas fa-phone mr-2"></i>Appeler maintenant
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                        
+                        openModal(data.title, content);
+                    }
+                });
+            });
+            
+            // Gestion du bouton "Voir toutes les destinations"
+            allDestinationsBtn.addEventListener('click', function() {
+                const content = `
+                    <div class="mb-4">
+                        <p class="mb-4">Nous proposons une large gamme de destinations à travers le monde. Voici un aperçu de nos offres :</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                            <div class="bg-gray-100 p-4 rounded-lg">
+                                <h4 class="font-bold text-lg mb-2">Destinations Européennes</h4>
+                                <ul class="list-disc pl-5">
+                                    <li>Paris, France - À partir de 450 000 FCFA</li>
+                                    <li>Rome, Italie - À partir de 520 000 FCFA</li>
+                                    <li>Santorini, Grèce - À partir de 525 000 FCFA</li>
+                                    <li>Barcelone, Espagne - À partir de 480 000 FCFA</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-gray-100 p-4 rounded-lg">
+                                <h4 class="font-bold text-lg mb-2">Destinations Asiatiques</h4>
+                                <ul class="list-disc pl-5">
+                                    <li>Bali, Indonésie - À partir de 787 000 FCFA</li>
+                                    <li>Kyoto, Japon - À partir de 984 000 FCFA</li>
+                                    <li>Bangkok, Thaïlande - À partir de 650 000 FCFA</li>
+                                    <li>Dubai, Émirats Arabes Unis - À partir de 720 000 FCFA</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-gray-100 p-4 rounded-lg">
+                                <h4 class="font-bold text-lg mb-2">Destinations Africaines</h4>
+                                <ul class="list-disc pl-5">
+                                    <li>Marrakech, Maroc - À partir de 380 000 FCFA</li>
+                                    <li>Le Cap, Afrique du Sud - À partir de 750 000 FCFA</li>
+                                    <li>Zanzibar, Tanzanie - À partir de 680 000 FCFA</li>
+                                    <li>Île Maurice - À partir de 820 000 FCFA</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="bg-gray-100 p-4 rounded-lg">
+                                <h4 class="font-bold text-lg mb-2">Destinations Américaines</h4>
+                                <ul class="list-disc pl-5">
+                                    <li>New York, USA - À partir de 950 000 FCFA</li>
+                                    <li>Rio de Janeiro, Brésil - À partir de 890 000 FCFA</li>
+                                    <li>Punta Cana, République Dominicaine - À partir de 780 000 FCFA</li>
+                                    <li>Lima, Pérou - À partir de 1 100 000 FCFA</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <p class="mb-4">Tous nos prix sont indiqués en FCFA et peuvent varier selon la saison, la durée du séjour et les options choisies.</p>
+                        
+                        <div class="text-center mt-6">
+                            <a href="https://wa.me/241074085772?text=Bonjour,%20je%20suis%20intéressé(e)%20par%20vos%20destinations%20de%20voyage" 
+                               target="_blank" 
+                               class="inline-block bg-green-500 text-white font-bold py-3 px-6 rounded-lg btn-animate hover:bg-green-600 mr-4">
+                                <i class="fab fa-whatsapp mr-2"></i>Discuter sur WhatsApp
+                            </a>
+                            <a href="tel:+241074085772" class="inline-block bg-cyan-600 text-white font-bold py-3 px-6 rounded-lg btn-animate hover:bg-cyan-700">
+                                <i class="fas fa-phone mr-2"></i>Appeler maintenant
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                openModal("Toutes nos destinations", content);
+            });
+            
+            // Gestion du formulaire de contact
+            const contactForm = document.getElementById('contactForm');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+                
+                // Ici, normalement, vous enverriez les données à un serveur
+                // Pour cette démo, nous allons simuler un envoi réussi
+                
+                // Créer le message WhatsApp
+                const whatsappMessage = `Bonjour, je m'appelle ${name}. ${message}. Mon email est ${email}.`;
+                const encodedMessage = encodeURIComponent(whatsappMessage);
+                
+                // Afficher un message de confirmation
+                alert(`Merci ${name} ! Votre message a été envoyé. Vous allez être redirigé vers WhatsApp pour finaliser votre demande.`);
+                
+                // Rediriger vers WhatsApp
+                window.open(`https://wa.me/241074085772?text=${encodedMessage}`, '_blank');
+                
+                // Réinitialiser le formulaire
+                contactForm.reset();
             });
         });
     </script>
